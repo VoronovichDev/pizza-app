@@ -5,7 +5,7 @@ import Categories from './components/Categories';
 import Sort from './components/Sort';
 import PizzaBlock from './components/PizzaBlock';
 
-import pizzas from './assets/pizzaz.json';
+import pizzas from './assets/pizzas.json';
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
           <h2 className="content__title">All pizzas</h2>
           <div className="content__items">
             {pizzas.map((pizza) => (
-              <PizzaBlock {...pizza} />
+              <PizzaBlock {...pizza} key={pizza.id} />
             ))}
           </div>
         </div>
