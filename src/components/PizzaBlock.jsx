@@ -1,28 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function PizzaBlock(props) {
+function PizzaBlock({ title, price, imageUrl, sizes, types }) {
+  const [activeType, setActiveType] = useState(0);
+  const [activeSize, setActiveSize] = useState(0);
+  const typeNames = ['thin', 'traditional'];
+
   return (
     <div className="pizza-block">
-      <img
-        className="pizza-block__image"
-        src="https://cdn.dodostatic.net/static/Img/Products/9c985130f2c14f5badd361d9dc2767c8_760x760.jpeg"
-        alt="Pizza"
-      />
-      <h4 className="pizza-block__title">{props.title}</h4>
+      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+      <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
-          <li className="active">Thin</li>
-          <li>traditional</li>
+          {types.map((typeId) => (
+            <li
+              onClick={() => setActiveType(typeId)}
+              className={activeType === typeId ? 'active' : ''}
+            >
+              {typeNames[typeId]}
+            </li>
+          ))}
         </ul>
         <ul>
-          <li className="active">26 cm.</li>
-          <li>30 cm.</li>
-          <li>40 cm.</li>
+          {sizes.map((size, i) => (
+            <li onClick={() => setActiveSize(i)} className={activeSize === i ? 'active' : ''}>
+              {size} cm.
+            </li>
+          ))}
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">from {props.price} ₽</div>
-        <div className="button button--outline button--add">
+        <div className="pizza-block__price">from {price} ₽</div>
+        <button className="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -36,8 +44,8 @@ function PizzaBlock(props) {
             />
           </svg>
           <span>Add</span>
-          <i>2</i>
-        </div>
+          <i>0</i>
+        </button>
       </div>
     </div>
   );
