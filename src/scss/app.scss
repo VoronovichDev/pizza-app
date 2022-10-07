@@ -115,6 +115,9 @@ body {
 }
 
 .cart {
+   .content__items {
+      display: block;
+   }
    &__top {
       display: -webkit-box;
       display: -ms-flexbox;
