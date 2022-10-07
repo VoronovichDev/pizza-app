@@ -8,21 +8,27 @@ import Sort from '../components/Sort';
 const Home = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [categoryId, setCategotyId] = useState(0);
 
   useEffect(() => {
-    fetch('https://633eacc90dbc3309f3ba904c.mockapi.io/items')
+    setIsLoading(true);
+    fetch(
+      categoryId
+        ? `https://633eacc90dbc3309f3ba904c.mockapi.io/items?category=${categoryId}`
+        : `https://633eacc90dbc3309f3ba904c.mockapi.io/items`,
+    )
       .then((res) => res.json())
       .then((arr) => {
         setItems(arr);
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, []);
+  }, [categoryId]);
 
   return (
     <div className="container">
       <div className="content__top">
-        <Categories />
+        <Categories value={categoryId} onClickCategory={(i) => setCategotyId(i)} />
         <Sort />
       </div>
       <h2 className="content__title">All pizzas</h2>
