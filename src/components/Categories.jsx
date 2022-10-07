@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Categories() {
+const Categories = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const categories = ['All', 'Meat', 'Vegetarian', 'Grill', 'Spicy', 'Closed'];
@@ -20,6 +20,6 @@ function Categories() {
       </ul>
     </div>
   );
-}
+};
 
 export default Categories;

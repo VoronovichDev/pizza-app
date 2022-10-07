@@ -1,43 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import './scss/app.scss';
+import React from 'react';
+
 import Header from './components/Header';
-import Categories from './components/Categories';
-import Sort from './components/Sort';
-import PizzaBlock from './components/PizzaBlock';
-import Skeleton from './components/PizzaBlock/Skeleton';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
 
-function App() {
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+import './scss/app.scss';
 
-  useEffect(() => {
-    fetch('https://633eacc90dbc3309f3ba904c.mockapi.io/items')
-      .then((res) => res.json())
-      .then((arr) => {
-        setItems(arr);
-        setIsLoading(false);
-      });
-  }, []);
-
+const App = () => {
   return (
     <div className="wrapper">
       <Header />
       <div className="content">
         <div className="container">
-          <div className="content__top">
-            <Categories />
-            <Sort />
-          </div>
-          <h2 className="content__title">All pizzas</h2>
-          <div className="content__items">
-            {isLoading
-              ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-              : items.map((item) => <PizzaBlock key={item.id} {...item} />)}
-          </div>
+          <NotFound />
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default App;
