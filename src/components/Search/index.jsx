@@ -2,12 +2,12 @@ import React from 'react';
 
 import s from './Search.module.scss';
 
-const Search = () => {
+const Search = ({ searchValue, setSearchValue }) => {
   return (
     <div className={s.root}>
       <svg
         className={s.icon}
-        enable-background="new 0 0 50 50"
+        enableBackground="new 0 0 50 50"
         height="50px"
         id="Layer_1"
         version="1.1"
@@ -37,7 +37,26 @@ const Search = () => {
           y2="45.5"
         />
       </svg>
-      <input type="text" placeholder="Search pizza..." />
+      <input
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
+        type="text"
+        placeholder="Search pizza..."
+      />
+
+      {searchValue && (
+        <svg
+          onClick={() => setSearchValue('')}
+          className={s.clearIcon}
+          height="48"
+          viewBox="0 0 48 48"
+          width="48"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M38 12.83l-2.83-2.83-11.17 11.17-11.17-11.17-2.83 2.83 11.17 11.17-11.17 11.17 2.83 2.83 11.17-11.17 11.17 11.17 2.83-2.83-11.17-11.17z" />
+          <path d="M0 0h48v48h-48z" fill="none" />
+        </svg>
+      )}
     </div>
   );
 };
