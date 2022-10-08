@@ -4,9 +4,12 @@ const Sort = ({ value, onChangeSort }) => {
   const [open, setOpen] = useState(false);
 
   const list = [
-    { name: 'rating', sortProperty: 'rating' },
-    { name: 'price', sortProperty: 'price' },
-    { name: 'alphabet', sortProperty: 'title' },
+    { name: 'rating \u2191', sortProperty: '-rating' },
+    { name: 'rating \u2193', sortProperty: 'rating' },
+    { name: 'price \u2191', sortProperty: '-price' },
+    { name: 'price \u2193', sortProperty: 'price' },
+    { name: 'alphabet \u2191', sortProperty: '-title' },
+    { name: 'alphabet \u2193', sortProperty: 'title' },
   ];
 
   const onClickListItem = (i) => {

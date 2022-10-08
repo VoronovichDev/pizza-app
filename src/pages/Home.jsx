@@ -9,14 +9,17 @@ const Home = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategotyId] = useState(0);
-  const [sortType, setSortType] = useState({ name: 'rating', sortProperty: 'rating' });
+  const [sortType, setSortType] = useState({ name: 'rating \u2193', sortProperty: 'rating' });
 
   useEffect(() => {
     setIsLoading(true);
+
+    const sortBy = sortType.sortProperty.replace('-', '');
+    const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
+    const category = categoryId > 0 ? `category=${categoryId}` : '';
+
     fetch(
-      `https://633eacc90dbc3309f3ba904c.mockapi.io/items?${
-        categoryId > 0 ? `category=${categoryId}` : ''
-      }&sortBy=${sortType.sortProperty}&order=desc`,
+      `https://633eacc90dbc3309f3ba904c.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`,
     )
       .then((res) => res.json())
       .then((arr) => {
