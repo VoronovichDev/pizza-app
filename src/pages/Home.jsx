@@ -19,9 +19,9 @@ const Home = ({ searchValue }) => {
     const sortBy = sortType.sortProperty.replace('-', '');
     const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
     const category = categoryId > 0 ? `category=${categoryId}` : '';
-    const search = searchValue ? `&search=${searchValue}` : '';
+    const search = searchValue ? `&title=${searchValue}` : '';
 
-    //! due to the specifics of mockapi, search correctly works only on the "all" tab
+    //! due to the specifics of mockapi, search correctly works only on the "ALL" TAB AND FIRST PAGE
 
     fetch(
       `https://633eacc90dbc3309f3ba904c.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
