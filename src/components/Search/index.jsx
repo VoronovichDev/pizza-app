@@ -1,10 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { SearchContext } from '../../App';
 
 import s from './Search.module.scss';
 
 const Search = () => {
   const { searchValue, setSearchValue } = useContext(SearchContext);
+  const inputRef = useRef();
+
+  const onClickClear = () => {
+    setSearchValue('');
+    inputRef.current.focus();
+  };
+
+  console.log(inputRef);
 
   return (
     <div className={s.root}>
@@ -41,6 +49,7 @@ const Search = () => {
         />
       </svg>
       <input
+        ref={inputRef}
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
         type="text"
@@ -50,7 +59,7 @@ const Search = () => {
       {searchValue && (
         <svg
           className={s.clearIcon}
-          onClick={() => setSearchValue('')}
+          onClick={onClickClear}
           height="48"
           viewBox="0 0 48 48"
           width="48"
