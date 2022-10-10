@@ -12,17 +12,12 @@ import { SearchContext } from '../App';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const categoryId = useSelector((state) => state.filter.categoryId);
-
-  console.log(categoryId);
+  const { categoryId, sort } = useSelector((state) => state.filter);
 
   const { searchValue } = useContext(SearchContext);
-
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  //   const [categoryId, setCategotyId] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortType, setSortType] = useState({ name: 'rating \u2193', sortProperty: 'rating' });
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -31,8 +26,8 @@ const Home = () => {
   useEffect(() => {
     setIsLoading(true);
 
-    const sortBy = sortType.sortProperty.replace('-', '');
-    const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
+    const sortBy = sort.sortProperty.replace('-', '');
+    const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
     const category = categoryId > 0 ? `category=${categoryId}` : '';
     const search = searchValue ? `&title=${searchValue}` : '';
 
@@ -47,7 +42,7 @@ const Home = () => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType, searchValue, currentPage]);
+  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
   const pizzas = items.map((item) => <PizzaBlock key={item.id} {...item} />);
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
@@ -56,7 +51,7 @@ const Home = () => {
     <div className="container">
       <div className="content__top">
         <Categories value={categoryId} onChangeCategory={onChangeCategory} />
-        <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
+        <Sort />
       </div>
       <h2 className="content__title">All pizzas</h2>
       <div className="content__items">{isLoading ? skeletons : pizzas}</div>
