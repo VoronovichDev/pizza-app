@@ -1,18 +1,33 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useCallback, useContext, useRef, useState } from 'react';
+import debounce from 'lodash.debounce';
 import { SearchContext } from '../../App';
 
 import s from './Search.module.scss';
 
 const Search = () => {
-  const { searchValue, setSearchValue } = useContext(SearchContext);
+  // create 2 states. First - for fast input-value render. Second - for api search-requests
+  const [value, setValue] = useState('');
+  const { setSearchValue } = useContext(SearchContext);
   const inputRef = useRef();
 
   const onClickClear = () => {
     setSearchValue('');
+    setValue('');
     inputRef.current.focus();
   };
 
-  console.log(inputRef);
+  // create function after first render and save it. When the value in input changes - call setSearchValue-func after 250ms with parameter passed from search-input, update state from context and send request
+  const updateSearchValue = useCallback(
+    debounce((str) => {
+      setSearchValue(str);
+    }, 250),
+    [],
+  );
+
+  const onChangeInput = (e) => {
+    setValue(e.target.value);
+    updateSearchValue(e.target.value);
+  };
 
   return (
     <div className={s.root}>
@@ -50,13 +65,13 @@ const Search = () => {
       </svg>
       <input
         ref={inputRef}
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        value={value}
+        onChange={onChangeInput}
         type="text"
         placeholder="Search pizza..."
       />
 
-      {searchValue && (
+      {value && (
         <svg
           className={s.clearIcon}
           onClick={onClickClear}
