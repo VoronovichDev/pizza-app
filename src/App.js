@@ -25,8 +25,7 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
-      </SearchContext.Provider>{' '}
-      *
+      </SearchContext.Provider>
     </div>
   );
 };
