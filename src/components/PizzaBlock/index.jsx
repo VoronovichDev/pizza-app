@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import { addItem } from '../../redux/slices/cartSlice';
 
 import { useDispatch, useSelector } from 'react-redux';
+const typeNames = ['thin', 'traditional'];
 
 const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
   const dispatch = useDispatch();
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
-  const typeNames = ['thin', 'traditional'];
 
   const onClickAdd = () => {
     const item = {
@@ -16,7 +16,7 @@ const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
       title,
       price,
       imageUrl,
-      type: activeType,
+      type: typeNames[activeType],
       size: activeSize,
     };
     dispatch(addItem(item));
