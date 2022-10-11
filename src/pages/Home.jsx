@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
@@ -26,9 +26,9 @@ const Home = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const onChangeCategory = (id) => {
+  const onChangeCategory = useCallback((id) => {
     dispatch(setCategoryId(id));
-  };
+  }, []);
 
   const onChangePage = (number) => {
     dispatch(setCurrentPage(number));
@@ -54,49 +54,48 @@ const Home = () => {
       });
   };
 
-  //*on the very first render (example: open app) - prevent setting params in url
+  //*if the parameters have changed and there was a first render
   useEffect(() => {
-    //* if the render occurs and isMounted is true then do ...->
     if (isMounted.current) {
-      // stringify params-obj to set string in url
-      const queryString = qs.stringify({
-        sortProperty: sort.sortProperty,
-        categoryId,
-        currentPage,
-      });
-      // set string in url
+      // if there is no categoryId - don't stringify it
+      const queryString = qs.stringify(
+        categoryId > 0
+          ? {
+              sortProperty: sort.sortProperty,
+              categoryId,
+              currentPage,
+            }
+          : {
+              sortProperty: sort.sortProperty,
+              currentPage,
+            },
+      );
+
       navigate(`?${queryString}`);
     }
-    // after render set isMounter to true
+
     isMounted.current = true;
   }, [categoryId, sort.sortProperty, currentPage]);
 
-  //*on first render
+  //*if there was a first render - check the URL parameters and save them in redux
   useEffect(() => {
-    //*check url-params
     if (window.location.search) {
-      // parse url-string with our query
       const params = qs.parse(window.location.search.substring(1));
 
-      // find every sortProperty in exported from <Sort/> sortList-array
       const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);
 
-      //*...and put it in payload (send to redux)
       dispatch(setFilters({ ...params, sort }));
 
-      // signalize, that params came from url
       isSearch.current = true;
     }
   }, []);
 
-  //*prevent double-fetching
+  //*If there was a first render - then fetch pizzas
   useEffect(() => {
-    //* if it was first render - then fetch pizzas
     window.scrollTo(0, 0);
     if (!isSearch.current) {
       fetchPizzas();
     }
-    // and set isSearch to false
     isSearch.current = false;
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
