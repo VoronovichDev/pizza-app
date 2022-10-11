@@ -4,11 +4,11 @@ import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import Categories from '../components/Categories';
 import Pagination from '../components/Pagination';
 import PizzaBlock from '../components/PizzaBlock';
-import Sort from '../components/Sort';
+import Sort, { sortList } from '../components/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import { SearchContext } from '../App';
 
@@ -30,11 +30,14 @@ const Home = () => {
   };
 
   useEffect(() => {
+    // parse url-string with our query
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
-      console.log(params);
+      // find every sortProperty in exported from <Sort/> sortList-array and put it in payload
+      const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);
+      dispatch(setFilters({ ...params, sort }));
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -58,14 +61,15 @@ const Home = () => {
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
   useEffect(() => {
+    // stringify params-obj to set string in url
     const queryString = qs.stringify({
       sortProperty: sort.sortProperty,
       categoryId,
       currentPage,
     });
-    console.log(queryString);
+    // set string in url
     navigate(`?${queryString}`);
-  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
+  }, [categoryId, sort.sortProperty, searchValue, currentPage, navigate]);
 
   const pizzas = items.map((item) => <PizzaBlock key={item.id} {...item} />);
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);

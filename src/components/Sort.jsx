@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSort } from '../redux/slices/filterSlice';
 
-const list = [
+// export array for mapping in Home-element while constructing payload
+export const sortList = [
   { name: 'rating \u2191', sortProperty: '-rating' },
   { name: 'rating \u2193', sortProperty: 'rating' },
   { name: 'price \u2191', sortProperty: '-price' },
@@ -43,7 +44,7 @@ const Sort = () => {
       {open && (
         <div className="sort__popup">
           <ul>
-            {list.map((obj, i) => (
+            {sortList.map((obj, i) => (
               <li
                 key={i}
                 onClick={() => onClickListItem(obj)}
