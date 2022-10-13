@@ -107,8 +107,17 @@ const Home = () => {
         <Categories value={categoryId} onChangeCategory={onChangeCategory} />
         <Sort />
       </div>
+
       <h2 className="content__title">All pizzas</h2>
-      <div className="content__items">{status === 'loading' ? skeletons : pizzas}</div>
+      {status === 'error' ? (
+        <div className="content__error-info">
+          <h2>An error has occurred 😕</h2>
+          <p>Can't load pizzas. Please try again later</p>
+        </div>
+      ) : (
+        <div className="content__items">{status === 'loading' ? skeletons : pizzas}</div>
+      )}
+
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
