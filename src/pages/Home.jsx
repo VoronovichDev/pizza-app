@@ -34,7 +34,7 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchPizzas = () => {
+  const fetchPizzas = async () => {
     setIsLoading(true);
 
     const sortBy = sort.sortProperty.replace('-', '');
@@ -44,14 +44,16 @@ const Home = () => {
 
     //! due to the specifics of mockapi, search correctly works only on the "ALL" TAB AND FIRST PAGE
 
-    axios
-      .get(
+    try {
+      const res = await axios.get(
         `https://633eacc90dbc3309f3ba904c.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
-      )
-      .then((res) => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
+      );
+      setItems(res.data);
+    } catch (error) {
+      alert(`there is ${error}, we will fix it soon `);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   //*if the parameters have changed and there was a first render
