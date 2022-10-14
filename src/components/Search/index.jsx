@@ -1,18 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useContext, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import debounce from 'lodash.debounce';
-import { SearchContext } from '../../App';
+import { setSearchValue } from '../../redux/slices/filterSlice';
 
 import s from './Search.module.scss';
+import { useDispatch } from 'react-redux';
 
 const Search = () => {
-  // create 2 states. First - for fast input-value render. Second - for api search-requests
-  const [value, setValue] = useState('');
-  const { setSearchValue } = useContext(SearchContext);
+  const dispatch = useDispatch();
+
   const inputRef = useRef();
 
+  // local state for debounce
+  const [value, setValue] = useState('');
+
   const onClickClear = () => {
-    setSearchValue('');
+    dispatch(setSearchValue(''));
     setValue('');
     inputRef.current.focus();
   };
@@ -20,7 +23,7 @@ const Search = () => {
   // create function after first render and save it. When the value in input changes - call setSearchValue-func after 250ms with parameter passed from search-input, update state from context and send request
   const updateSearchValue = useCallback(
     debounce((str) => {
-      setSearchValue(str);
+      dispatch(setSearchValue(str));
     }, 250),
     [],
   );
