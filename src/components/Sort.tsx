@@ -2,8 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSort, setSort } from '../redux/slices/filterSlice';
 
+type SortItem = {
+  name: string;
+  sortProperty: string;
+};
+
 // export array for mapping in Home-element while constructing payload
-export const sortList = [
+export const sortList: SortItem[] = [
   { name: 'rating \u2191', sortProperty: '-rating' },
   { name: 'rating \u2193', sortProperty: 'rating' },
   { name: 'price \u2191', sortProperty: '-price' },
@@ -15,17 +20,17 @@ export const sortList = [
 const Sort = () => {
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
   const [open, setOpen] = useState(false);
 
-  const onClickListItem = (obj) => {
+  const onClickListItem = (obj: SortItem) => {
     dispatch(setSort(obj));
     setOpen(false);
   };
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
+    const handleClickOutside = (e: any) => {
       if (!e.composedPath().includes(sortRef.current)) {
         setOpen(false);
       }
