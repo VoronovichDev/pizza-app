@@ -1,23 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectSort, setSort } from '../redux/slices/filterSlice';
+import { selectSort, setSort, SortPropertyEnum } from '../redux/slices/filterSlice';
 
 type SortItem = {
   name: string;
-  sortProperty: string;
+  sortProperty: SortPropertyEnum;
 };
 
 // export array for mapping in Home-element while constructing payload
 export const sortList: SortItem[] = [
-  { name: 'rating \u2191', sortProperty: '-rating' },
-  { name: 'rating \u2193', sortProperty: 'rating' },
-  { name: 'price \u2191', sortProperty: '-price' },
-  { name: 'price \u2193', sortProperty: 'price' },
-  { name: 'alphabet \u2191', sortProperty: '-title' },
-  { name: 'alphabet \u2193', sortProperty: 'title' },
+  { name: 'rating \u2191', sortProperty: SortPropertyEnum.RATING_ASC },
+  { name: 'rating \u2193', sortProperty: SortPropertyEnum.RATING_DESC },
+  { name: 'price \u2191', sortProperty: SortPropertyEnum.PRICE_ASC },
+  { name: 'price \u2193', sortProperty: SortPropertyEnum.PRICE_DESC },
+  { name: 'alphabet \u2191', sortProperty: SortPropertyEnum.TITLE_ASC },
+  { name: 'alphabet \u2193', sortProperty: SortPropertyEnum.TITLE_DESC },
 ];
 
-const Sort = () => {
+const SortPopup = () => {
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
   const sortRef = useRef<HTMLDivElement>(null);
@@ -78,4 +78,4 @@ const Sort = () => {
   );
 };
 
-export default Sort;
+export default SortPopup;

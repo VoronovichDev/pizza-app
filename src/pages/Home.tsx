@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import {
   selectFilter,
@@ -15,11 +15,12 @@ import Pagination from '../components/Pagination';
 import PizzaBlock from '../components/PizzaBlock';
 import Sort, { sortList } from '../components/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
-import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzasSlice';
+import { fetchPizzas, SearchPizzaParams, selectPizzaData } from '../redux/slices/pizzasSlice';
+import { useAppDispatch } from '../redux/store';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const isSearch = useRef(false);
   const isMounted = useRef(false);
@@ -44,14 +45,12 @@ const Home: React.FC = () => {
     //! due to the specifics of mockapi, search correctly works only on the "ALL" TAB AND FIRST PAGE
 
     dispatch(
-      // TODO
-      // @ts-ignore
       fetchPizzas({
         sortBy,
         order,
         category,
         search,
-        currentPage,
+        currentPage: String(currentPage),
       }),
     );
   };
@@ -82,11 +81,17 @@ const Home: React.FC = () => {
   //*if there was a first render - check the URL parameters and save them in redux
   useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
+      const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
+      const sort = sortList.find((obj) => obj.sortProperty === params.sortBy);
 
-      const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);
-
-      dispatch(setFilters({ ...params, sort }));
+      dispatch(
+        setFilters({
+          searchValue: params.search,
+          categoryId: Number(params.category),
+          currentPage: Number(params.currentPage),
+          sort: sort || sortList[0],
+        }),
+      );
 
       isSearch.current = true;
     }
