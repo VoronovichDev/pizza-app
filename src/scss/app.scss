@@ -528,9 +528,17 @@ body {
       width: 560px;
       text-align: center;
 
+      @media (max-width: 580px) {
+         margin: 10px auto;
+         width: auto;
+      }
+
       h2 {
          font-size: 32px;
          margin-bottom: 10px;
+         @media (max-width: 580px) {
+            font-size: 24px;
+         }
       }
 
       p {
@@ -538,6 +546,9 @@ body {
          line-height: 145.4%;
          letter-spacing: 0.01em;
          color: #777777;
+         @media (max-width: 580px) {
+            font-size: 14px;
+         }
       }
 
       icon {
@@ -549,6 +560,10 @@ body {
          display: block;
          width: 300px;
          margin: 45px auto 60px;
+         @media (max-width: 580px) {
+            width: 200px;
+            margin: 10px auto;
+         }
       }
 
       .button--black {
