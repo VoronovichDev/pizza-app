@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { addItem, CartItem, minusItem, removeItem } from '../redux/slices/cartSlice';
+import { addItem, minusItem, removeItem } from '../redux/cart/slice';
+import { CartItem } from '../redux/cart/types';
 
 // in mockApi id - is a string. This was done so that we can take pizza by .../items/{id},
 // otherwise we would have to write /items?id={...}
