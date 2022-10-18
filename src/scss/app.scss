@@ -125,6 +125,9 @@ body {
       .content__title {
          margin: 0;
       }
+      @media (max-width: 800px) {
+         margin: 20px auto;
+      }
    }
    &.fullpizza {
       display: -webkit-box;
@@ -219,6 +222,7 @@ body {
    }
 
    &__item {
+      gap: 10px;
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
@@ -226,8 +230,14 @@ body {
       border-top: 1px solid $gray-line;
       padding-top: 30px;
       margin-top: 30px;
-
+      @media (max-width: 550px) {
+         display: grid;
+         grid-template-columns: 1fr 1fr 0.3fr;
+         grid-template-rows: auto auto;
+         justify-items: center;
+      }
       &-img {
+         grid-column: 1;
          display: -webkit-box;
          display: -ms-flexbox;
          display: flex;
@@ -240,10 +250,16 @@ body {
          img {
             width: 80px;
             height: 80px;
+            @media (max-width: 550px) {
+               width: 40px;
+               height: 40px;
+               margin-left: -4px;
+            }
          }
       }
 
       &-info {
+         grid-column: 2;
          display: -webkit-box;
          display: -ms-flexbox;
          display: flex;
@@ -254,18 +270,38 @@ body {
          -webkit-box-pack: center;
          -ms-flex-pack: center;
          justify-content: center;
+         -webkit-box-align: center;
+         -ms-flex-align: center;
+         align-items: center;
          width: 40%;
+         @media (max-width: 780px) {
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            width: 30%;
+         }
+         @media (max-width: 550px) {
+            width: auto;
+         }
 
          h3 {
+            text-align: center;
             font-weight: bold;
             font-size: 22px;
             line-height: 27px;
             letter-spacing: 0.01em;
+            @media (max-width: 550px) {
+               font-size: 16px;
+               line-height: 20px;
+            }
          }
 
          p {
             font-size: 18px;
             color: #8d8d8d;
+            @media (max-width: 550px) {
+               font-size: 12px;
+            }
          }
       }
 
@@ -280,7 +316,7 @@ body {
          -ms-flex-pack: justify;
          justify-content: space-between;
          width: 13%;
-
+         gap: 15px;
          &-minus {
             svg {
                path:first-of-type {
@@ -307,13 +343,22 @@ body {
                }
             }
          }
+         @media (max-width: 550px) {
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+         }
 
          b {
             font-size: 22px;
+            @media (max-width: 550px) {
+               font-size: 12px;
+            }
          }
       }
 
       &-price {
+         white-space: nowrap;
          display: -webkit-box;
          display: -ms-flexbox;
          display: flex;
@@ -324,11 +369,19 @@ body {
          -ms-flex-pack: center;
          justify-content: center;
          width: 33%;
+         @media (max-width: 780px) {
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+         }
 
          b {
             font-weight: bold;
             font-size: 22px;
             letter-spacing: 0.01em;
+            @media (max-width: 550px) {
+               font-size: 14px;
+            }
          }
       }
 
@@ -343,6 +396,8 @@ body {
          -ms-flex-pack: end;
          justify-content: flex-end;
          width: 4%;
+         grid-column: 3;
+         grid-row: 1;
 
          .button {
             border-color: darken($color: $gray-line, $amount: 10);
@@ -386,6 +441,9 @@ body {
 
          span {
             font-size: 22px;
+            @media (max-width: 550px) {
+               font-size: 16px;
+            }
 
             &:last-of-type {
                b {
@@ -415,6 +473,9 @@ body {
             -ms-flex-pack: center;
             justify-content: center;
             width: 210px;
+            @media (max-width: 550px) {
+               width: 120px;
+            }
 
             border-color: darken($color: $gray-line, $amount: 10);
 
@@ -422,6 +483,9 @@ body {
                color: darken($color: $gray-line, $amount: 20);
                font-weight: 500;
                font-weight: 600;
+               @media (max-width: 550px) {
+                  font-size: 12px;
+               }
             }
 
             &:hover {
@@ -447,6 +511,14 @@ body {
             font-weight: 600;
             width: 210px;
             padding: 16px;
+            @media (max-width: 550px) {
+               width: 120px;
+            }
+            span {
+               @media (max-width: 550px) {
+                  font-size: 12px;
+               }
+            }
          }
       }
    }
