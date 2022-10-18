@@ -17,7 +17,7 @@ export const sortList: SortItem[] = [
   { name: 'alphabet \u2193', sortProperty: SortPropertyEnum.TITLE_DESC },
 ];
 
-const SortPopup = () => {
+const SortPopup: React.FC = () => {
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
   const sortRef = useRef<HTMLDivElement>(null);
