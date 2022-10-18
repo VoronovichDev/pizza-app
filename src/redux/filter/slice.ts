@@ -38,10 +38,18 @@ const filterSlice = createSlice({
         };
       }
     },
+    resetFilters(state) {
+      state.currentPage = 1;
+      state.categoryId = 0;
+      state.sort = {
+        name: 'rating \u2193',
+        sortProperty: SortPropertyEnum.RATING_DESC,
+      };
+    },
   },
 });
 
-export const { setCategoryId, setSort, setCurrentPage, setFilters, setSearchValue } =
+export const { setCategoryId, setSort, setCurrentPage, resetFilters, setFilters, setSearchValue } =
   filterSlice.actions;
 
 export default filterSlice.reducer;
