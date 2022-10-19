@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import Loader from '../components/Loader';
 
 const FullPizza: React.FC = () => {
   const [pizza, setPizza] = useState<{
@@ -26,7 +27,7 @@ const FullPizza: React.FC = () => {
   }, []);
 
   if (!pizza) {
-    return <p>loading...</p>;
+    return <Loader />;
   }
 
   return (

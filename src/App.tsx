@@ -6,9 +6,10 @@ import NotFound from './pages/NotFound';
 
 import './scss/app.scss';
 import MainLayout from './layouts/MainLayout';
+import Loader from './components/Loader';
 
-const Cart = React.lazy(() => import('./pages/Cart'));
-const FullPizza = React.lazy(() => import('./pages/FullPizza'));
+const Cart = React.lazy(() => import(/* webpackChunkName: "Cart" */ './pages/Cart'));
+const FullPizza = React.lazy(() => import(/* webpackChunkName: "FullPizza" */ './pages/FullPizza'));
 
 const App = () => {
   return (
@@ -18,7 +19,7 @@ const App = () => {
         <Route
           path="/cart"
           element={
-            <Suspense fallback={<div>Cart is loading...</div>}>
+            <Suspense fallback={<Loader />}>
               <Cart />
             </Suspense>
           }
