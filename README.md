@@ -8,11 +8,12 @@ This is React and TypeScript app for pizzeria
 - Redux (Toolkit) 
 - React Router (v6)
 - Axios
-*used preconfigured in my IDE prettier and linter*
+- *used preconfigured in my IDE prettier and linter*
 
 ## Gh-Pages
 https://voronovichdev.github.io/pizza-app/
-*in gh-pages there is 2 cases, when 404-page occurs: 1) when you reload app being on the FullPizza-page 2)...or being on the Cart-page*
+____
+*in gh-pages there are 2 cases, when 404-page occurs: 1) when you reload app being on the FullPizza-page 2)...or being on the Cart-page*
 ***...so to fully explore the application, it is recommended to install the project locally***
 
 ____
