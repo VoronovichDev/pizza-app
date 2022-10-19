@@ -1,71 +1,44 @@
-# Getting Started with Create React App
+# Pizza App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is React and TypeScript app for pizzeria 
 
-## Available Scripts
+## Features
+- React (+hooks)
+- TypeScript
+- Redux (Toolkit) 
+- React Router (v6)
+- Axios
+*used preconfigured in my IDE prettier and linter*
 
-In the project directory, you can run:
+## Gh-Pages
+https://voronovichdev.github.io/pizza-app/
+*in gh-pages there is 2 cases, when 404-page occurs: 1) when you reload app being on the FullPizza-page 2)...or being on the Cart-page*
+***...so to fully explore the application, it is recommended to install the project locally***
 
-### `npm start`
+____
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Interaction
+- add and remove pizzas in cart, clear cart
+- navigation between pages
+- total price and pizza amount counter on the cart-button
+- click on each and info about it
+- pizzas are stored in local storage
+- while request is pending - user see skeletons and loaders
+- search, sort, filtration, pagination
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Fetching pizzas (asynchronous actions)
+Pizzas are fetching from backend (to emulate this I used MockApi) with axios and createAsyncThunk
+*due to the specifics of mockapi, search correctly works only on the "all" tab and first page*
 
-### `npm test`
+### Pagination
+pagination implemented with react-paginate
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Sort and filtration
+- To parse and stringify params I used qs.
+- To get rid of a lot of requests when searching, I used lodash.debounce
 
-### `npm run build`
+### Redux and store
+All redux logic was implemented via redux-toolkit
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# pizza-app
+### TypeScript 
+- components, reedux, actions, props, events are typified
